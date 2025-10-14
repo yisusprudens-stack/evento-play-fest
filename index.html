@@ -6,7 +6,7 @@
     <title>Play Fest - La Competición Definitiva</title>
     <!-- Carga de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- La librería qrcode.min.js se ha movido al final del body para asegurar que se cargue antes de su uso -->
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Definición del color neón y fuente */
@@ -303,10 +303,10 @@
                     <h3 class="text-3xl font-bold text-neon mb-4">¡Tu Entrada Oficial Play Fest!</h3>
                     <p class="text-white mb-2">Nombre: <span id="qr-name-display" class="font-extrabold text-neon"></span></p>
                     
-                    <!-- Canvas for QR Code. Note: qrcode.js draws a canvas inside this container -->
-                    <div id="qrcode-container" class="p-4 inline-block bg-white rounded-lg shadow-neon-lg border-2 border-neon">
-                        <!-- QR Code will be drawn here -->
-                    </div>
+                    <!-- CAMBIO: Ahora usamos un canvas para la nueva librería QRious -->
+                    <canvas id="qr-canvas" width="256" height="256" class="p-4 inline-block bg-white rounded-lg shadow-neon-lg border-2 border-neon">
+                        <!-- El código QR se dibujará aquí -->
+                    </canvas>
                     
                     <p class="mt-4 text-sm text-gray-400">¡Guarda esta imagen! Es tu acceso al evento y contiene tus datos de inscripción.</p>
                     <button id="download-qr" class="mt-4 inline-block px-6 py-2 font-bold uppercase rounded-lg transition duration-300 ease-in-out bg-black text-neon border-2 border-neon hover:bg-neon hover:text-black hover:scale-[1.05]">
@@ -338,15 +338,16 @@
         </p>
     </footer>
 
-<!-- Librería para generar el QR code (MOVIMIENTO CLAVE) -->
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/qrcode.min.js"></script>
+<!-- Librería para generar el QR code (HEMOS CAMBIADO A QRious) -->
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 
 <script>
     // Configuración y lógica para el QR Code
     const form = document.getElementById('qr-form');
     const qrResult = document.getElementById('qr-result');
     const qrNameDisplay = document.getElementById('qr-name-display');
-    const qrcodeContainer = document.getElementById('qrcode-container');
+    // CAMBIO: Ahora referenciamos el elemento canvas directamente
+    const qrCanvas = document.getElementById('qr-canvas');
     const downloadQrButton = document.getElementById('download-qr');
     const messageBox = document.getElementById('message-box');
 
@@ -377,20 +378,16 @@
 
         // Datos que contendrá el QR (el nombre de la entrada + los datos del jugador)
         const qrData = `Entrada Play Fest - Jugador: ${nombre} ${apellidos}`;
-
-        // Limpiar el contenedor de QR anterior
-        qrcodeContainer.innerHTML = '';
         
-        // Generar QR Code
+        // Generar QR Code usando QRious
         try {
-            // El color claro se mantiene blanco para asegurar la escaneabilidad
-            new QRCode(qrcodeContainer, {
-                text: qrData,
-                width: 256,
-                height: 256,
-                colorDark: "#000000",
-                colorLight: "#FFFFFF", 
-                correctLevel: QRCode.CorrectLevel.H
+            // Inicializar el objeto QRious. Dibuja directamente en el elemento canvas
+            new QRious({
+                element: qrCanvas, 
+                value: qrData,
+                size: 256,
+                background: 'white', // Color de fondo del QR
+                foreground: 'black'  // Color de los puntos del QR
             });
             
             // Actualizar la interfaz y mostrar el resultado
@@ -404,15 +401,17 @@
 
         } catch (error) {
             showMessage('error', 'Hubo un problema al generar el código QR. Inténtalo de nuevo.');
-            console.error("QR Generation Error:", error);
+            // Es crucial ver el error en la consola si persiste
+            console.error("QR Generation Error (QRious):", error);
         }
     });
 
     // Lógica para descargar la imagen del QR
     downloadQrButton.addEventListener('click', function() {
-        const canvas = qrcodeContainer.querySelector('canvas');
+        // Usamos el elemento canvas directamente
+        const canvas = qrCanvas; 
         
-        if (canvas) {
+        if (canvas && canvas.toDataURL) {
             // Convertir el canvas a Data URL (PNG)
             const dataURL = canvas.toDataURL('image/png');
             const link = document.createElement('a');
@@ -426,7 +425,7 @@
             link.click();
             document.body.removeChild(link);
         } else {
-            showMessage('error', 'Error al descargar. El código QR no está visible.');
+            showMessage('error', 'Error al descargar. El código QR no está visible o no se ha generado correctamente.');
         }
     });
 
