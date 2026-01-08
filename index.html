@@ -30,7 +30,7 @@
         }
 
         .game-card {
-            @apply p-8 rounded-2xl border-2 border-neon bg-gray-900 shadow-neon transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg flex flex-col h-full;
+            @apply p-8 rounded-2xl border-2 border-neon bg-gray-900 shadow-neon transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg flex flex-col h-full items-center text-center;
         }
 
         .svg-icon {
@@ -38,8 +38,27 @@
             fill: var(--color-neon);
         }
 
+        /* Corrección definitiva para inputs en móvil */
         input {
-            @apply w-full p-4 rounded-xl bg-black border-2 border-neon text-white placeholder-gray-600 focus:outline-none focus:shadow-neon;
+            @apply w-full p-4 rounded-xl border-2 border-neon focus:outline-none focus:shadow-neon transition-all;
+            background-color: #18181b !important; /* Zinc-900 */
+            color: #ffffff !important;
+            font-size: 16px; /* Evita zoom automático en iOS */
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        /* Manejo del autocompletado del navegador (evita fondo blanco/azul) */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: #ffffff !important;
+            -webkit-box-shadow: 0 0 0px 1000px #18181b inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        input::placeholder {
+            color: #71717a !important; /* Gray-400 */
         }
     </style>
 </head>
@@ -79,7 +98,7 @@
 
         <!-- Info Section -->
         <section id="info" class="mb-32">
-            <h2 class="text-4xl md:text-5xl font-black mb-12 text-white italic">
+            <h2 class="text-4xl md:text-5xl font-black mb-12 text-white italic text-center">
                 <span class="text-neon">//</span> INFORMACIÓN <span class="text-neon">GENERAL</span>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -138,33 +157,41 @@
         </section>
 
         <!-- Inscripción -->
-        <section id="inscripcion" class="max-w-3xl mx-auto py-16">
-            <div class="bg-gray-900 border-4 border-neon rounded-[3rem] p-10 shadow-neon-lg">
+        <section id="inscripcion" class="py-16">
+            <div class="max-w-3xl mx-auto bg-gray-900 border-4 border-neon rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-neon-lg">
                 <div class="text-center mb-10">
-                    <h2 class="text-5xl font-black italic mb-4">INSCRIPCIÓN</h2>
-                    <p class="text-neon font-bold tracking-widest uppercase text-sm">Genera tu entrada para el Play Fest</p>
+                    <h2 class="text-4xl md:text-5xl font-black italic mb-4">INSCRIPCIÓN</h2>
+                    <p class="text-neon font-bold tracking-widest uppercase text-xs md:text-sm">Genera tu entrada para el Play Fest</p>
                 </div>
 
                 <form id="qr-form" class="space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <input type="text" id="nombre" placeholder="NOMBRE" required>
-                        <input type="text" id="apellidos" placeholder="APELLIDOS" required>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+                        <div class="flex flex-col">
+                            <label for="nombre" class="text-xs font-bold text-neon mb-2 ml-2">NOMBRE</label>
+                            <input type="text" id="nombre" placeholder="Escribe tu nombre" required autocomplete="off">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="apellidos" class="text-xs font-bold text-neon mb-2 ml-2">APELLIDOS</label>
+                            <input type="text" id="apellidos" placeholder="Escribe tus apellidos" required autocomplete="off">
+                        </div>
                     </div>
-                    <button type="submit" class="btn-neon w-full py-5 text-2xl tracking-tighter italic">
+                    <button type="submit" class="btn-neon w-full py-5 text-xl md:text-2xl tracking-tighter italic mt-4">
                         OBTENER ENTRADA QR
                     </button>
                 </form>
 
-                <div id="qr-result" class="mt-12 hidden text-center animate-pulse">
-                    <h3 class="text-2xl font-bold text-neon mb-6">¡ENTRADA GENERADA!</h3>
-                    <p class="text-white mb-6 uppercase font-bold tracking-widest" id="qr-name-display"></p>
+                <div id="qr-result" class="mt-12 hidden text-center">
+                    <h3 class="text-2xl font-bold text-neon mb-6 uppercase">¡Entrada Generada con Éxito!</h3>
+                    <p class="text-white mb-6 uppercase font-bold tracking-widest border-b border-neon pb-2 inline-block" id="qr-name-display"></p>
                     
-                    <div class="bg-white p-6 inline-block rounded-2xl shadow-neon-lg border-4 border-neon">
-                        <canvas id="qr-canvas"></canvas>
+                    <div class="mt-6">
+                        <div class="bg-white p-4 inline-block rounded-2xl shadow-neon-lg border-4 border-neon">
+                            <canvas id="qr-canvas"></canvas>
+                        </div>
                     </div>
                     
-                    <div class="mt-8">
-                        <button id="download-qr" class="px-8 py-3 bg-white text-black font-black uppercase rounded-lg hover:bg-neon transition">
+                    <div class="mt-10">
+                        <button id="download-qr" class="px-8 py-3 bg-white text-black font-black uppercase rounded-lg hover:bg-neon transition duration-300">
                             Descargar Entrada
                         </button>
                     </div>
@@ -175,7 +202,7 @@
     </main>
 
     <footer class="bg-black border-t-4 border-neon py-10 text-center">
-        <p class="text-gray-500 font-bold uppercase tracking-widest text-sm">
+        <p class="text-gray-500 font-bold uppercase tracking-widest text-sm px-4">
             © 2024 Play Fest | Organizado por <span class="text-neon">Team PlayFest</span>
         </p>
     </footer>
@@ -212,7 +239,9 @@
                 qrResult.classList.remove('hidden');
                 form.classList.add('hidden');
                 
-                qrResult.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    qrResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
             }
         });
 
