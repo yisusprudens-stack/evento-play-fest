@@ -6,434 +6,225 @@
     <title>Play Fest - La Competición Definitiva</title>
     <!-- Carga de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Definición del color neón y fuente */
         :root {
             --color-neon: #D5FF00;
         }
         .text-neon { color: var(--color-neon); }
         .bg-neon { background-color: var(--color-neon); }
         .border-neon { border-color: var(--color-neon); }
-        /* Definición de una sombra más intensa para el hover */
-        .shadow-neon-lg { box-shadow: 0 0 20px rgba(213, 255, 0, 0.9); }
-        .shadow-neon { box-shadow: 0 0 10px rgba(213, 255, 0, 0.7); }
+        .shadow-neon { box-shadow: 0 0 15px rgba(213, 255, 0, 0.7); }
+        .shadow-neon-lg { box-shadow: 0 0 25px rgba(213, 255, 0, 0.9); }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #000000;
             color: #FFFFFF;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
-        /* Estilo base para los botones/enlaces de acción */
         .btn-neon {
-            @apply inline-block px-8 py-3 font-bold uppercase rounded-lg transition duration-300 ease-in-out bg-neon text-black border-2 border-neon shadow-neon hover:bg-black hover:text-neon hover:shadow-neon-lg;
+            @apply inline-block px-10 py-4 font-bold uppercase rounded-lg transition duration-300 ease-in-out bg-neon text-black border-2 border-neon shadow-neon hover:bg-black hover:text-neon hover:shadow-neon-lg transform hover:-translate-y-1;
         }
 
-        /* Estilo para los iconos SVG */
+        .game-card {
+            @apply p-8 rounded-2xl border-2 border-neon bg-gray-900 shadow-neon transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg flex flex-col h-full;
+        }
+
         .svg-icon {
-            width: 32px;
-            height: 32px;
+            @apply w-12 h-12 mb-4;
             fill: var(--color-neon);
+        }
+
+        input {
+            @apply w-full p-4 rounded-xl bg-black border-2 border-neon text-white placeholder-gray-600 focus:outline-none focus:shadow-neon;
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero Section -->
-    <header class="h-screen flex items-center justify-center text-center bg-black border-b-4 border-neon">
-        <div class="px-6 md:px-12">
-            <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight">
+    <!-- Hero -->
+    <header class="h-screen flex items-center justify-center text-center bg-black border-b-8 border-neon">
+        <div class="px-6">
+            <h1 class="text-7xl sm:text-8xl md:text-9xl font-extrabold tracking-tighter italic">
                 <span class="text-neon block leading-none">PLAY</span>
                 <span class="text-white block leading-none">FEST</span>
             </h1>
-            <p class="mt-4 text-xl sm:text-2xl md:text-3xl text-white font-semibold italic">
-                El evento donde competir <span class="text-neon">también es divertirse</span>.
+            <p class="mt-6 text-xl md:text-2xl font-bold uppercase tracking-widest">
+                El evento de <span class="text-neon">Team PlayFest</span>
             </p>
-            <div class="mt-10">
-                <a href="#info" class="btn-neon">
-                    Ver Reglamento
+            <div class="mt-12">
+                <a href="#juegos" class="btn-neon text-xl">
+                    Explorar Desafíos
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Navigation (Sticky for easy access) -->
-    <nav class="sticky top-0 z-50 bg-black bg-opacity-95 shadow-lg border-b border-neon p-4">
-        <div class="container mx-auto flex justify-between items-center flex-wrap">
-            <a href="#" class="text-2xl font-bold text-neon transition duration-300 hover:text-white hover:scale-105">P-Fest</a>
-            <div class="flex space-x-4 text-sm sm:text-base font-semibold">
-                <a href="#info" class="hover:text-neon transition hover:scale-105">Info</a>
-                <a href="#juegos" class="hover:text-neon transition hover:scale-105">Juegos</a>
-                <a href="#puntuaciones" class="hover:text-neon transition hover:scale-105">Puntos</a>
-                <a href="#inscripcion" class="hover:text-neon transition hover:scale-105">Inscripción</a>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-black/95 border-b border-neon p-4 backdrop-blur-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-3xl font-black text-neon italic">P-FEST</a>
+            <div class="hidden md:flex space-x-10 font-bold uppercase text-sm tracking-widest">
+                <a href="#info" class="hover:text-neon transition">Evento</a>
+                <a href="#juegos" class="hover:text-neon transition">Los 4 Juegos</a>
+                <a href="#inscripcion" class="text-neon">Inscripción</a>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto p-6 md:p-12">
+    <main class="container mx-auto px-6 py-16">
 
-        <!-- 1. Información General (Qué, Dónde, Cuándo) -->
-        <section id="info" class="my-16 md:my-24">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-white">
-                <span class="text-neon">//</span> LA CITA <span class="text-neon">OFICIAL</span>
+        <!-- Info Section -->
+        <section id="info" class="mb-32">
+            <h2 class="text-4xl md:text-5xl font-black mb-12 text-white italic">
+                <span class="text-neon">//</span> INFORMACIÓN <span class="text-neon">GENERAL</span>
             </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="p-6 rounded-xl border-2 border-neon bg-gray-900 shadow-neon transition duration-300 transform hover:scale-[1.03] hover:shadow-neon-lg">
-                    <p class="text-3xl font-extrabold text-neon">¿QUÉ ES?</p>
-                    <p class="mt-2 text-white text-lg">
-                        Una jornada épica de competición y camaradería organizada por **Team PlayFest**. Demuestra la habilidad, el trabajo en equipo y el espíritu deportivo en 8 desafíos únicos.
-                    </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-gray-900 p-8 rounded-2xl border-l-8 border-neon shadow-neon">
+                    <h3 class="text-2xl font-bold text-neon mb-4">¿QUÉ ES?</h3>
+                    <p class="text-gray-300">Una competición intensa de 4 juegos diseñada para poner a prueba tu físico y tu mente. Organizada por Team PlayFest.</p>
                 </div>
-                <div class="p-6 rounded-xl border-2 border-neon bg-gray-900 shadow-neon transition duration-300 transform hover:scale-[1.03] hover:shadow-neon-lg">
-                    <p class="text-3xl font-extrabold text-neon">¿CUÁNDO?</p>
-                    <p class="mt-2 text-white text-lg">
-                        ¡Prepárense! El evento arranca a las <span class="font-bold">9:30 AM</span>. No se aceptan retrasos, la puntualidad es clave.
-                    </p>
+                <div class="bg-gray-900 p-8 rounded-2xl border-l-8 border-neon shadow-neon">
+                    <h3 class="text-2xl font-bold text-neon mb-4">UBICACIÓN</h3>
+                    <p class="text-gray-300">Campo de Fútbol Alfredo Cenarriaga. A las 9:30 AM empieza la acción.</p>
                 </div>
-                <div class="p-6 rounded-xl border-2 border-neon bg-gray-900 shadow-neon transition duration-300 transform hover:scale-[1.03] hover:shadow-neon-lg">
-                    <p class="text-3xl font-extrabold text-neon">¿DÓNDE?</p>
-                    <p class="mt-2 text-white text-lg">
-                        El campo de batalla es el **Campo de Fútbol Alfredo Cenarriaga**. Asegúrate de conocer la ubicación. ¡La acción será al aire libre!
-                    </p>
+                <div class="bg-gray-900 p-8 rounded-2xl border-l-8 border-neon shadow-neon">
+                    <h3 class="text-2xl font-bold text-neon mb-4">TU PUNTUACIÓN</h3>
+                    <p class="text-gray-300">Cada jugador recibirá un cartón oficial para almacenar sus puntos de cada juego.</p>
                 </div>
             </div>
         </section>
 
-        <hr class="border-neon my-16 md:my-24">
-
-        <!-- 2. Sistema de Puntuación (Mantenido igual) -->
-        <section id="puntuaciones" class="my-16 md:my-24">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-white">
-                <span class="text-neon">//</span> EL CARTÓN <span class="text-neon">DE PUNTOS</span>
+        <!-- Juegos Section -->
+        <section id="juegos" class="mb-32">
+            <h2 class="text-5xl md:text-6xl font-black mb-16 text-center italic">
+                LOS <span class="text-neon">4 DESAFÍOS</span>
             </h2>
-            <p class="text-lg mb-6 text-gray-300">
-                Cada jugador recibirá un cartón oficial donde se registrarán sus puntos individuales en cada prueba. La suma total al final de la jornada define a los ganadores.
-            </p>
 
-            <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-2 border-neon transition duration-300 transform hover:scale-[1.01] hover:shadow-neon-lg">
-                <h3 class="text-3xl font-bold mb-4 text-neon">Clasificación General (Top 3)</h3>
-                <!-- Placeholder para las clasificaciones -->
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center p-3 bg-gray-800 rounded-md">
-                        <span class="text-2xl font-extrabold text-neon">1.</span>
-                        <span class="text-xl font-semibold">Equipo/Jugador [Nombre Aquí]</span>
-                        <span class="text-xl font-extrabold text-neon">999 Pts</span>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-gray-800 rounded-md">
-                        <span class="text-2xl font-extrabold text-white">2.</span>
-                        <span class="text-xl font-semibold">Equipo/Jugador [Nombre Aquí]</span>
-                        <span class="text-xl font-extrabold text-white">750 Pts</span>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-gray-800 rounded-md">
-                        <span class="text-2xl font-extrabold text-white">3.</span>
-                        <span class="text-xl font-semibold">Equipo/Jugador [Nombre Aquí]</span>
-                        <span class="text-xl font-extrabold text-white">620 Pts</span>
-                    </div>
-                </div>
-                <p class="mt-4 text-sm text-gray-500 italic">
-                    *Esta es una tabla de ejemplo. Las puntuaciones reales se actualizarán en el sitio web oficial el día del evento.
-                </p>
-            </div>
-        </section>
-
-        <hr class="border-neon my-16 md:my-24">
-
-        <!-- 3. Detalle de Juegos y Reglamento -->
-        <section id="juegos" class="my-16 md:my-24">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-white">
-                <span class="text-neon">//</span> LOS <span class="text-neon">DESAFÍOS</span>
-            </h2>
-            <p class="text-lg mb-10 text-gray-300">
-                A continuación, el detalle de cada prueba, el formato de juego y cómo puedes sumar los puntos para tu cartón. Haz **hover** sobre cada juego para un efecto visual.
-            </p>
-
-            <!-- Contenedor de Juegos -->
-            <div class="space-y-10">
-
-                <!-- JUEGO 1: Trivia Rush (Antes: Preguntados) -->
-                <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-l-4 border-neon shadow-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg">
-                    <h3 class="text-3xl font-bold text-neon mb-2 flex items-center space-x-3">
-                        <!-- Icono de Preguntados (Question Mark) -->
-                        <svg class="svg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 10a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12" y2="17"></line><circle cx="12" cy="12" r="10"></circle></svg>
-                        <span>Trivia Rush</span>
-                    </h3>
-                    <p class="text-lg mb-4 text-white">¡Rapidez y conocimiento! Demuestra quién es el más listo en 6 rondas temáticas.</p>
-                    <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
-                        <li>**Jugadores:** 20 por ronda. Rondas de 6 temas.</li>
-                        <li>**Tiempo:** 1 minuto por respuesta. Prioridad de respuesta: Mano alzada. En caso de empate, se resuelve con Piedra, Papel o Tijeras.</li>
-                        <li>**Puntos por Tema:** Ciencia (100pts), Historia (90pts), Geografía (80pts), Arte (70pts), Deporte (60pts), Entretenimiento (50pts).</li>
-                        <li>**Descalificación:** Responder sin levantar la mano (más de 2 veces), uso de celular o ayuda externa.</li>
-                    </ul>
-                </div>
-
-                <!-- JUEGO 2: Luz Roja, Luz Verde (Sin cambio) -->
-                <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-l-4 border-neon shadow-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg">
-                    <h3 class="text-3xl font-bold text-neon mb-2 flex items-center space-x-3">
-                        <!-- Icono de Luz Roja, Luz Verde (Runner) -->
-                        <svg class="svg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8l-1.47 3.7A2 2 0 1 1 12 16L12 8l4-4"></path><path d="M9 19c-1.5 0-3-.5-4-1"></path><path d="M12 18h.01"></path><path d="M16 18c1.5 0 3-.5 4-1"></path><path d="M10 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"></path></svg>
-                        <span>Luz Roja, Luz Verde</span>
-                    </h3>
-                    <p class="text-lg mb-4 text-white">Velocidad, concentración y nervios de acero. ¡A correr!</p>
-                    <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
-                        <li>**Jugadores:** 20 jugadores, 2 equipos. 2 rondas.</li>
-                        <li>**Tiempo:** 3 minutos de corte. Gana el primero que llegue o el más cercano al límite de tiempo.</li>
-                        <li>**Puntos (Individuales):** 1er lugar (100pts), 2do (90pts), 3ro (80pts), 4to (70pts), 5to (60pts).</li>
-                        <li>**Descalificación:** Ser eliminado durante el juego.</li>
-                    </ul>
-                </div>
-
-                <!-- JUEGO 3: Desafío Inestable (Antes: Carrera de Equilibrio y/o Carretilla) -->
-                <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-l-4 border-neon shadow-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg">
-                    <h3 class="text-3xl font-bold text-neon mb-2 flex items-center space-x-3">
-                        <!-- Icono de Equilibrio (Balance) -->
-                        <svg class="svg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0 0 18h0a9 9 0 0 0 0-18z"></path><path d="M12 3v18"></path><path d="M17 12H7"></path></svg>
-                        <span>Desafío Inestable</span>
-                    </h3>
-                    <p class="text-lg mb-4 text-white">Coordinación en equipo y control absoluto. Dos formatos: individual (equilibrio) o parejas (carretilla).</p>
-                    <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
-                        <li>**Jugadores:** 1 (Equilibrio) o 2 (Carretilla) personas por equipo.</li>
-                        <li>**Puntos por Lugar:** 1er (100pts), 2do (85pts), 3er (50pts), 4to (40pts), 5to (30pts).</li>
-                        <li>**Descalificación:** Usar las manos para apoyar el equilibrio o ejercer fuerza contra un contrincante.</li>
-                    </ul>
-                </div>
-
-                <!-- JUEGO 4: Atrápame si puedes (Antes: Duelo de Pañuelos - REGLAS ACTUALIZADAS) -->
-                <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-l-4 border-neon shadow-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg">
-                    <h3 class="text-3xl font-bold text-neon mb-2 flex items-center space-x-3">
-                        <!-- Icono de Pañuelo (Flag/Competition) -->
-                        <svg class="svg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
-                        <span>Atrápame si puedes</span>
-                    </h3>
-                    <p class="text-lg mb-4 text-white">El clásico juego del pañuelo. Velocidad, reacción y un poco de engaño.</p>
-                    <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
-                        <li>**Jugadores:** Equipos de 10 vs 10. Se llama a un jugador por número (1 vs 1).</li>
-                        <li>**Objetivo:** Agarrar el pañuelo en el centro y volver a la base sin que el oponente te toque.</li>
-                        <li>**Puntos:** Agarrar el pañuelo y volver a base con éxito (20pts). Tocar al oponente ANTES de que llegue a su base (10pts).</li>
-                        <li>**Descalificación:** Empujar o ejercer fuerza. Intentar tocar al jugador antes de que tome el pañuelo.</li>
-                    </ul>
-                </div>
-
-                <!-- JUEGO 5: Juego de Tronos (Antes: El Juego de la Silla) -->
-                <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-l-4 border-neon shadow-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg">
-                    <h3 class="text-3xl font-bold text-neon mb-2 flex items-center space-x-3">
-                        <!-- Icono de La Silla (Chair/Music) -->
-                        <svg class="svg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2z"></path><path d="M22 10h-4"></path><path d="M6 10H2"></path><path d="M6 14H2"></path><path d="M22 14h-4"></path></svg>
-                        <span>Juego de Tronos</span>
-                    </h3>
-                    <p class="text-lg mb-4 text-white">Un clásico que pone a prueba la astucia y el ritmo. ¡Cuidado con los empujones!</p>
-                    <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
-                        <li>**Jugadores:** 20 personas, divididos en dos grupos de 5 vs 5.</li>
-                        <li>**Puntos (Grupo):** 100 puntos al ganador y a todos sus compañeros de grupo.</li>
-                        <li>**Descalificación y Revocación de Puntos:** Ejercer fuerza, empujar o tratar de quitar al rival de su asiento.</li>
-                    </ul>
-                </div>
-
-                <!-- JUEGO 6: Mímica (Sin cambio) -->
-                <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-l-4 border-neon shadow-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg">
-                    <h3 class="text-3xl font-bold text-neon mb-2 flex items-center space-x-3">
-                        <!-- Icono de Mímica (Mask/Theater) -->
-                        <svg class="svg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M13.62 17.15L20 19l-2-6.42a3 3 0 0 0-2.3-2.3l-6.42-2 2.83-2.83a3 3 0 0 0 0-4.24l-3-3a3 3 0 0 0-4.24 0L4 3.76"></path><path d="M13 14L4 5"></path><circle cx="20" cy="4" r="1"></circle></svg>
-                        <span>Mímica</span>
-                    </h3>
-                    <p class="text-lg mb-4 text-white">Actuación, creatividad y comunicación no verbal. ¿Qué tan buenos son para adivinar?</p>
-                    <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
-                        <li>**Jugadores:** Duelo entre equipos (10 vs 10).</li>
-                        <li>**Formato:** 5 mímicas por equipo. Se asigna una temática o tema específico.</li>
-                        <li>**Puntos por Acierto:** 20 puntos por mímica acertada. Ambos equipos pueden ganar los 100 puntos si logran todos los aciertos.</li>
-                    </ul>
-                </div>
-
-                <!-- JUEGO 7: Flag Football (Sin cambio) -->
-                <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-l-4 border-neon shadow-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg">
-                    <h3 class="text-3xl font-bold text-neon mb-2 flex items-center space-x-3">
-                        <!-- Icono de Flag Football (Football) -->
-                        <svg class="svg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10l.5-4.5h11L18 10"></path><path d="M12 10a4 4 0 0 0 4 4h0a4 4 0 0 0 4-4v-2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4h0a4 4 0 0 0 4-4"></path><line x1="12" y1="14" x2="12" y2="20"></line></svg>
-                        <span>Flag Football</span>
-                    </h3>
-                    <p class="text-lg mb-4 text-white">Un partido de contacto limitado y pura estrategia en el campo. ¡A por la bandera!</p>
-                    <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
-                        <li>**Jugadores:** 10 vs 10. Reglas similares al fútbol americano.</li>
-                        <li>**Puntos:** 5 yardas (20pts), 10 yardas (35pts), Touchdown (45pts). El primero en llegar a 100 puntos gana el partido.</li>
-                        <li>**Descalificación:** Jugadas sucias (expulsión sin reemplazo). La expulsión de 3 jugadores resulta en derrota inmediata.</li>
-                    </ul>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 
-                <!-- JUEGO 8: Quemados (Antes: Balón Prisionero) -->
-                <div class="p-6 md:p-8 bg-gray-900 rounded-xl border-l-4 border-neon shadow-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-neon-lg">
-                    <h3 class="text-3xl font-bold text-neon mb-2 flex items-center space-x-3">
-                        <!-- Icono de Balón Prisionero (Target/Ball) -->
-                        <svg class="svg-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-                        <span>Quemados</span>
-                    </h3>
-                    <p class="text-lg mb-4 text-white">El clásico de la eliminación. ¡Esquiva, atrapa y lanza! (También conocido como Dodgeball).</p>
-                    <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
-                        <li>**Jugadores:** 10 vs 10. Se disponen 4 balones al centro.</li>
-                        <li>**Reglas:** El jugador debe atrapar el balón entre brazos. Si rebota, es eliminado.</li>
-                        <li>**Puntos:** Por cada jugador eliminado (hasta el 6to) (10pts). Por eliminar al último jugador (40pts).</li>
-                        <li>**Sanciones:** Jugada sucia (empujar, tirar a zonas no permitidas como cabeza/partes íntimas) resulta en expulsión y -20 puntos.</li>
-                    </ul>
+                <!-- 1. Flag Fútbol -->
+                <div class="game-card">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15v-4H9V9h6v4h-2v4h-2z"/></svg>
+                    <h3 class="text-3xl font-black text-white mb-4 italic">FLAG FÚTBOL</h3>
+                    <p class="text-gray-300">Competición 10 contra 10 al puro estilo americano. El primero en llegar a la meta de puntos gana el partido. Las jugadas sucias implican eliminación directa.</p>
                 </div>
+
+                <!-- 2. Preguntados -->
+                <div class="game-card">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                    <h3 class="text-3xl font-black text-white mb-4 italic">PREGUNTADOS</h3>
+                    <p class="text-gray-300">20 personas por ronda en 6 temas. Levanta la mano rápido; si hay empate, se decide en un duelo de Piedra, Papel o Tijeras.</p>
+                </div>
+
+                <!-- 3. Pañuelo -->
+                <div class="game-card">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                    <h3 class="text-3xl font-black text-white mb-4 italic">EL PAÑUELO</h3>
+                    <p class="text-gray-300">Duelo 10 contra 10. No olvides tu número o perderás puntos. El equipo que logre capturar la mayor cantidad de pañuelos se lleva la victoria absoluta.</p>
+                </div>
+
+                <!-- 4. Luz Verde Luz Roja -->
+                <div class="game-card">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    <h3 class="text-3xl font-black text-white mb-4 italic">LUZ ROJA LUZ VERDE</h3>
+                    <p class="text-gray-300">20 jugadores, 2 equipos, 2 rondas. El tiempo límite es de 3 minutos. Muévete rápido pero congélate a tiempo para no ser descalificado.</p>
+                </div>
+
             </div>
         </section>
 
-        <hr class="border-neon my-16 md:my-24">
+        <!-- Inscripción -->
+        <section id="inscripcion" class="max-w-3xl mx-auto py-16">
+            <div class="bg-gray-900 border-4 border-neon rounded-[3rem] p-10 shadow-neon-lg">
+                <div class="text-center mb-10">
+                    <h2 class="text-5xl font-black italic mb-4">INSCRIPCIÓN</h2>
+                    <p class="text-neon font-bold tracking-widest uppercase text-sm">Genera tu entrada para el Play Fest</p>
+                </div>
 
-        <!-- 4. Inscripción y QR Code Generator (Funcionalidad QRious) -->
-        <section id="inscripcion" class="my-16 md:my-24 text-center">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-white">
-                <span class="text-neon">//</span> ÚNETE <span class="text-neon">AL FESTIVAL</span>
-            </h2>
-            <p class="text-xl md:text-2xl text-gray-300 mb-6">
-                ¡Asegura tu participación! Genera tu código QR oficial que te servirá como **Entrada** al evento.
-            </p>
-            
-            <div id="inscription-container" class="max-w-xl mx-auto p-8 bg-gray-900 rounded-xl border-2 border-neon shadow-neon-lg">
                 <form id="qr-form" class="space-y-6">
-                    <input type="text" id="nombre" placeholder="Nombre (Ej: Juan)" required class="w-full p-3 rounded-lg bg-black border border-neon text-white placeholder-gray-500 focus:ring-2 focus:ring-neon focus:border-neon">
-                    <input type="text" id="apellidos" placeholder="Apellidos (Ej: Pérez García)" required class="w-full p-3 rounded-lg bg-black border border-neon text-white placeholder-gray-500 focus:ring-2 focus:ring-neon focus:border-neon">
-                    <button type="submit" class="btn-neon w-full transition duration-300 transform hover:scale-[1.02]">Generar mi Entrada QR</button>
-                </form>
-                
-                <!-- QR Code Display Area (Hidden initially) -->
-                <div id="qr-result" class="mt-8 hidden text-center">
-                    <h3 class="text-3xl font-bold text-neon mb-4">¡Tu Entrada Oficial Play Fest!</h3>
-                    <p class="text-white mb-2">Nombre: <span id="qr-name-display" class="font-extrabold text-neon"></span></p>
-                    
-                    <!-- CAMBIO: Utilizamos un canvas para la librería QRious -->
-                    <canvas id="qr-canvas" width="256" height="256" class="p-4 inline-block bg-white rounded-lg shadow-neon-lg border-2 border-neon">
-                        <!-- El código QR se dibujará aquí -->
-                    </canvas>
-                    
-                    <p class="mt-4 text-sm text-gray-400">¡Guarda esta imagen! Es tu acceso al evento y contiene tus datos de inscripción.</p>
-                    <button id="download-qr" class="mt-4 inline-block px-6 py-2 font-bold uppercase rounded-lg transition duration-300 ease-in-out bg-black text-neon border-2 border-neon hover:bg-neon hover:text-black hover:scale-[1.05]">
-                        Descargar Entrada
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <input type="text" id="nombre" placeholder="NOMBRE" required>
+                        <input type="text" id="apellidos" placeholder="APELLIDOS" required>
+                    </div>
+                    <button type="submit" class="btn-neon w-full py-5 text-2xl tracking-tighter italic">
+                        OBTENER ENTRADA QR
                     </button>
+                </form>
+
+                <div id="qr-result" class="mt-12 hidden text-center animate-pulse">
+                    <h3 class="text-2xl font-bold text-neon mb-6">¡ENTRADA GENERADA!</h3>
+                    <p class="text-white mb-6 uppercase font-bold tracking-widest" id="qr-name-display"></p>
+                    
+                    <div class="bg-white p-6 inline-block rounded-2xl shadow-neon-lg border-4 border-neon">
+                        <canvas id="qr-canvas"></canvas>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <button id="download-qr" class="px-8 py-3 bg-white text-black font-black uppercase rounded-lg hover:bg-neon transition">
+                            Descargar Entrada
+                        </button>
+                    </div>
                 </div>
-
-                <!-- Custom Message Box for errors/success (instead of alert) -->
-                <div id="message-box" class="mt-4 hidden p-4 rounded-lg text-white font-semibold"></div>
             </div>
-
-            <!-- Enlace a Redes Sociales fuera del formulario -->
-            <a href="#" class="mt-10 inline-block px-8 py-3 font-bold uppercase rounded-lg transition duration-300 ease-in-out bg-black text-neon border-2 border-neon hover:bg-neon hover:text-black hover:scale-105">
-                Contacto y Redes
-            </a>
-
-            <p class="mt-12 text-lg text-white font-semibold italic">
-                Organizado por: <span class="text-neon">Team PlayFest</span> (Solo organizadores, ¡no somos una empresa!)
-            </p>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 p-6 text-center border-t-4 border-neon">
-        <p class="text-sm text-gray-400">
-            Play Fest - Sitio Oficial de Información para Participantes.
-            <br>&copy; 2024 Team PlayFest. Todos los derechos reservados.
+    <footer class="bg-black border-t-4 border-neon py-10 text-center">
+        <p class="text-gray-500 font-bold uppercase tracking-widest text-sm">
+            © 2024 Play Fest | Organizado por <span class="text-neon">Team PlayFest</span>
         </p>
     </footer>
 
-<!-- Librería para generar el QR code (QRious, estable y fiable) -->
-<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <!-- Librería QRious -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 
-<script>
-    // Configuración y lógica para el QR Code
-    const form = document.getElementById('qr-form');
-    const qrResult = document.getElementById('qr-result');
-    const qrNameDisplay = document.getElementById('qr-name-display');
-    const qrCanvas = document.getElementById('qr-canvas');
-    const downloadQrButton = document.getElementById('download-qr');
-    const messageBox = document.getElementById('message-box');
+    <script>
+        const form = document.getElementById('qr-form');
+        const qrResult = document.getElementById('qr-result');
+        const qrNameDisplay = document.getElementById('qr-name-display');
+        const qrCanvas = document.getElementById('qr-canvas');
+        const downloadQrButton = document.getElementById('download-qr');
 
-    // Función para mostrar mensajes personalizados
-    function showMessage(type, text) {
-        messageBox.textContent = text;
-        messageBox.classList.remove('hidden', 'bg-red-900', 'bg-green-900', 'border-red-500', 'border-green-500');
-        
-        if (type === 'error') {
-            messageBox.classList.add('bg-red-900', 'border', 'border-red-500');
-        } else if (type === 'success') {
-            messageBox.classList.add('bg-green-900', 'border', 'border-green-500');
-        }
-        messageBox.scrollIntoView({ behavior: 'smooth' });
-    }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        messageBox.classList.add('hidden'); // Ocultar mensajes previos
-
-        const nombre = document.getElementById('nombre').value.trim();
-        const apellidos = document.getElementById('apellidos').value.trim();
-        
-        if (nombre === "" || apellidos === "") {
-            showMessage('error', 'Error: Por favor, introduce tu nombre y apellidos completos para generar la entrada.');
-            return;
-        }
-
-        // Datos que contendrá el QR (el nombre de la entrada + los datos del jugador)
-        const qrData = `Entrada Play Fest - Jugador: ${nombre} ${apellidos}`;
-        
-        // Generar QR Code usando QRious
-        try {
-            // Inicializar el objeto QRious. Dibuja directamente en el elemento canvas
-            new QRious({
-                element: qrCanvas, 
-                value: qrData,
-                size: 256,
-                background: 'white', // Color de fondo del QR
-                foreground: 'black'  // Color de los puntos del QR
-            });
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellidos = document.getElementById('apellidos').value.trim();
             
-            // Actualizar la interfaz y mostrar el resultado
-            qrNameDisplay.textContent = `${nombre} ${apellidos}`;
-            qrResult.classList.remove('hidden');
-            form.classList.add('hidden'); // Ocultar el formulario
-            showMessage('success', '¡Entrada QR generada con éxito! No olvides descargarla.');
-            
-            // Scroll al resultado
-            qrResult.scrollIntoView({ behavior: 'smooth' });
+            if (nombre && apellidos) {
+                const qrData = `ENTRADA PLAY FEST - JUGADOR: ${nombre} ${apellidos}`;
+                
+                new QRious({
+                    element: qrCanvas,
+                    value: qrData,
+                    size: 256,
+                    background: 'white',
+                    foreground: 'black',
+                    level: 'H'
+                });
 
-        } catch (error) {
-            showMessage('error', 'Hubo un problema al generar el código QR. Inténtalo de nuevo.');
-            console.error("QR Generation Error (QRious):", error);
-        }
-    });
+                qrNameDisplay.textContent = `${nombre} ${apellidos}`;
+                qrResult.classList.remove('hidden');
+                form.classList.add('hidden');
+                
+                qrResult.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
 
-    // Lógica para descargar la imagen del QR
-    downloadQrButton.addEventListener('click', function() {
-        // Usamos el elemento canvas directamente
-        const canvas = qrCanvas; 
-        
-        if (canvas && canvas.toDataURL) {
-            // Convertir el canvas a Data URL (PNG)
-            const dataURL = canvas.toDataURL('image/png');
+        downloadQrButton.addEventListener('click', function() {
+            const dataURL = qrCanvas.toDataURL('image/png');
             const link = document.createElement('a');
-            
-            // Asignar el nombre del archivo: "Entrada_PlayFest.png"
             link.href = dataURL;
-            link.download = 'Entrada_PlayFest.png'; 
-            
-            // Simular el click para descargar
+            link.download = 'Entrada_PlayFest.png';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        } else {
-            showMessage('error', 'Error al descargar. El código QR no está visible o no se ha generado correctamente.');
-        }
-    });
-
-    // Asegurar que el formulario se muestre si el usuario recarga la página
-    document.addEventListener('DOMContentLoaded', () => {
-        form.classList.remove('hidden');
-        qrResult.classList.add('hidden');
-    });
-
-</script>
-
+        });
+    </script>
 </body>
 </html>
